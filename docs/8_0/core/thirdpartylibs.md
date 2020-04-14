@@ -31,7 +31,7 @@ are many other third party libraries and plugins used to support features.
 | jQuery Timepicker Addon | 1.6.3 | http://trentrichardson.com/examples/timepicker |
 | jQuery UI Touch Punch | 1.0.5 | https://github.com/RWAP/jquery-ui-touch-punch |
 | jQuery UI | 1.12.1 | https://github.com/jquery/jquery-ui |
-| jQuery | 3.4.1 | https://jquery.com/ |
+| jQuery | 3.5.0 | https://jquery.com/ |
 | jquery.layout | 1.5.12 | https://github.com/GedMarc/layout |
 | Jquery.print | 1.6.0 | https://github.com/DoersGuild/jQuery.print |
 | jScrollPane | 2.0.19 | http://jscrollpane.kelvinluck.com/ |
