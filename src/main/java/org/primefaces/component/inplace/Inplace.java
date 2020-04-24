@@ -111,8 +111,16 @@ public class Inplace extends InplaceBase {
         for (Iterator<UIComponent> it = getFacetsAndChildren(); it.hasNext(); ) {
             UIComponent component = it.next();
             if (component instanceof EditableValueHolder && !((EditableValueHolder) component).isValid()) {
-                valid = false;
-                break;
+                return false;
+            }
+            int childCount = component.getChildCount();
+            if (childCount > 0) {
+                for (int i = 0; i < childCount; i++) {
+                    UIComponent child = component.getChildren().get(i);
+                    if (child instanceof EditableValueHolder && !((EditableValueHolder) child).isValid()) {
+                        return false;
+                    }
+                }
             }
         }
 
