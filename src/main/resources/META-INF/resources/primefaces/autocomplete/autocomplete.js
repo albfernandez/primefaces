@@ -813,7 +813,7 @@ PrimeFaces.widget.AutoComplete = PrimeFaces.widget.BaseWidget.extend({
 
         this.input.on('blur', function(e) {
         	// #5731: do not fire clear event if selecting item
-            var fireClearEvent = e.relatedTarget == null || PrimeFaces.escapeClientId(e.relatedTarget.id) !== $this.panelId,
+            var fireClearEvent = e.relatedTarget == null || PrimeFaces.escapeClientId(e.relatedTarget.id) !== $this.panelId;
             var value = $(this).val();
             valid = $this.isValid(value, fireClearEvent);
 

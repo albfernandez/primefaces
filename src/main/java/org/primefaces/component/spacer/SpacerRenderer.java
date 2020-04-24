@@ -46,7 +46,7 @@ public class SpacerRenderer extends CoreRenderer {
 
         String styleClass = "ui-transparent-pixel ";
         if (spacer.getStyleClass() != null) {
-        	styleClass = styleClass + spacer.getStyleClass();
+            styleClass = styleClass + spacer.getStyleClass();
         }
         writer.writeAttribute("class", styleClass, "styleClass");
         if (spacer.getStyle() != null) {
