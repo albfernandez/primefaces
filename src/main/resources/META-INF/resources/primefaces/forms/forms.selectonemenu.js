@@ -425,7 +425,7 @@ PrimeFaces.widget.SelectOneMenu = PrimeFaces.widget.DeferredWidget.extend({
 
 
                     var matchedOptions = null,
-                    metaKey = e.metaKey||e.ctrlKey||e.shiftKey;
+                    metaKey = e.metaKey||e.ctrlKey||e.shiftKey||e.altKey;
 
                     if(!metaKey) {
                         clearTimeout($this.searchTimer);
