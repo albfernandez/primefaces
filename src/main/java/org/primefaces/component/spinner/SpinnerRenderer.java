@@ -47,19 +47,18 @@ public class SpinnerRenderer extends InputRenderer {
 
         String submittedValue = context.getExternalContext().getRequestParameterMap().get(spinner.getClientId(context) + "_input");
         if (submittedValue != null) {
-	        String prefix = spinner.getPrefix();
-	        String suffix = spinner.getSuffix();
-	
-	        if (prefix != null && submittedValue.startsWith(prefix)) {
-	            submittedValue = submittedValue.substring(prefix.length());
-	        }
-	        if (suffix != null && submittedValue.endsWith(suffix)) {
-	            submittedValue = submittedValue.substring(0, (submittedValue.length() - suffix.length()));
-	        }
-	        if (!LangUtils.isValueEmpty(spinner.getThousandSeparator())) {
-	            submittedValue = submittedValue.replace(spinner.getThousandSeparator(), "");
-	        }
-	        submittedValue = submittedValue.replace(spinner.getDecimalSeparator(), ".");
+            String prefix = spinner.getPrefix();
+            String suffix = spinner.getSuffix();
+            if (prefix != null && submittedValue.startsWith(prefix)) {
+                submittedValue = submittedValue.substring(prefix.length());
+            }
+            if (suffix != null && submittedValue.endsWith(suffix)) {
+                submittedValue = submittedValue.substring(0, (submittedValue.length() - suffix.length()));
+            }
+            if (!LangUtils.isValueEmpty(spinner.getThousandSeparator())) {
+                submittedValue = submittedValue.replace(spinner.getThousandSeparator(), "");
+            }
+            submittedValue = submittedValue.replace(spinner.getDecimalSeparator(), ".");
         }
         spinner.setSubmittedValue(submittedValue);
     }
