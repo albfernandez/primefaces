@@ -23,7 +23,7 @@
  */
 package org.primefaces.virusscan;
 
-import java.io.InputStream;
+import org.primefaces.model.file.UploadedFile;
 
 /**
  * Service provider interface for virus scanning that might be used in file upload component for example when dealing with untrusted files.
@@ -37,11 +37,11 @@ public interface VirusScanner {
      */
     boolean isEnabled();
 
+
     /**
      * Perform virus scan and throw exception if a virus has been detected.
-     * @param inputStream input stream to perform virus scan on
-     * @throws VirusException if a virus has been detected by the scanner
+     * @param file file to perform virus scan on
      */
-    void performVirusScan(InputStream inputStream) throws VirusException;
+    void scan(UploadedFile file);
 
 }
