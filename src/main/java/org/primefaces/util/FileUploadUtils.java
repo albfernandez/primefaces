@@ -188,14 +188,37 @@ public class FileUploadUtils {
     }
 
     private static boolean isValidFileContent(PrimeApplicationContext context, FileUpload fileUpload, String fileName, InputStream stream) throws IOException {
+        if (LangUtils.isValueBlank(fileUpload.getAccept())) {
+            //Short circuit
+            return true;
+        }
+        //Comma-separated values: file_extension|audio/*|video/*|image/*|media_type (see https://www.w3schools.com/tags/att_input_accept.asp)
+        String[] accepts = fileUpload.getAccept().split(",");
+        boolean onlyExtensions = true;
+        for (int i = 0; i < accepts.length; i++) {
+            accepts[i] = accepts[i].trim().toLowerCase();
+            if (!accepts[i].startsWith(".")) {
+                onlyExtensions = false;
+            }
+        }
+        // First check extensions
+        for (String accept : accepts) {
+            if (accept.startsWith(".") && fileName.toLowerCase().endsWith(accept)) {
+                if (LOGGER.isLoggable(Level.FINE)) {
+                    LOGGER.fine(String.format("The file extension %s of the uploaded file %s is accepted", accept, fileName));
+                }
+                return true;
+            }
+        }
+        // if we only have extensions, we are not going to check contenttypes
+        if (onlyExtensions) {
+            return false;
+        }
+
         if (!fileUpload.isValidateContentType()) {
             if (LOGGER.isLoggable(Level.FINE)) {
                 LOGGER.fine("Content type checking is disabled");
             }
-            return true;
-        }
-        if (LangUtils.isValueBlank(fileUpload.getAccept())) {
-            //Short circuit
             return true;
         }
 
@@ -232,18 +255,8 @@ public class FileUploadUtils {
                 return false;
             }
 
-            //Comma-separated values: file_extension|audio/*|video/*|image/*|media_type (see https://www.w3schools.com/tags/att_input_accept.asp)
-            String[] accepts = fileUpload.getAccept().split(",");
             boolean accepted = false;
             for (String accept : accepts) {
-                accept = accept.trim().toLowerCase();
-                if (accept.startsWith(".") && fileName.toLowerCase().endsWith(accept)) {
-                    accepted = true;
-                    if (LOGGER.isLoggable(Level.FINE)) {
-                        LOGGER.fine(String.format("The file extension %s of the uploaded file %s is accepted", accept, fileName));
-                    }
-                    break;
-                }
                 //Now we have a media type that may contain wildcards
                 if (FilenameUtils.wildcardMatch(contentType.toLowerCase(), accept)) {
                     accepted = true;

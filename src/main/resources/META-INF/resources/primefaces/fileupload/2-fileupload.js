@@ -447,6 +447,25 @@ PrimeFaces.widget.FileUpload = PrimeFaces.widget.BaseWidget.extend({
         if (this.cfg.allowTypes && !(this.cfg.allowTypes.test(file.type) || this.cfg.allowTypes.test(file.name))) {
             return this.cfg.invalidFileMessage;
         }
+        if (this.input.attr("accept")) {
+        	var accepts = this.input.attr("accept").split(",");
+        	var valid = false;
+        	var onlyExtensions = true;
+        	for(var i = 0; i < accepts.length; i++) {
+        		var accept = $.trim(accepts[i]).toLowerCase();
+        		if (accept[0] == '.') {
+        			var name = file.name.toLowerCase();
+        			var nameEndsWithAccept = name.substring(name.length - accept.length, name.length) === accept; 
+        			valid = valid || nameEndsWithAccept; 
+        		}
+        		else {
+        			onlyExtensions = false;
+        		}
+        	}
+        	if (onlyExtensions && !valid) {
+        		return this.cfg.invalidFileMessage;
+        	}
+        }
 
         if (this.cfg.maxFileSize && file.size > this.cfg.maxFileSize) {
             return this.cfg.invalidSizeMessage;
