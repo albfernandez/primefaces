@@ -89,6 +89,14 @@ public class PrimeFaces {
     protected PrimeRequestContext getRequestContext() {
         return PrimeRequestContext.getCurrentInstance();
     }
+    /**
+     * Checks if the current request is a Faces request.
+     *
+     * @return <code>true</code> if the current request is a Faces request.
+     */
+    public boolean isFacesRequest() {
+        return getFacesContext() != null;
+    }
 
     /**
      * Shortcut for {@link PartialViewContext#isAjaxRequest()}.
@@ -96,7 +104,11 @@ public class PrimeFaces {
      * @return <code>true</code> if the current request is a AJAX request.
      */
     public boolean isAjaxRequest() {
-        return getFacesContext().getPartialViewContext().isAjaxRequest();
+        FacesContext context = getFacesContext();
+        if (context == null) {
+            return false;
+        }
+        return context.getPartialViewContext().isAjaxRequest();
     }
 
     /**
