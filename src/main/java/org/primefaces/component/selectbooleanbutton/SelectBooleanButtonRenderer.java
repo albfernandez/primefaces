@@ -148,7 +148,11 @@ public class SelectBooleanButtonRenderer extends InputRenderer {
 
     @Override
     public Object getConvertedValue(FacesContext context, UIComponent component, Object submittedValue) throws ConverterException {
-        return ((submittedValue instanceof Boolean) ? submittedValue : Boolean.valueOf(submittedValue.toString()));
+        if (submittedValue instanceof Boolean) {
+            return submittedValue;
+        }
+        Object convertedValue = ComponentUtils.getConvertedValue(context, component, submittedValue);
+        return (convertedValue instanceof Boolean) ? convertedValue : Boolean.valueOf(convertedValue.toString());
     }
 
     @Override
