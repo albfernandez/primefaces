@@ -1490,8 +1490,10 @@
                 .on('mouseup.datePicker-time', timeSelector, null, function (event) {
                     $this.onTimePickerElementMouseUp(event);
                 })
-                .on('mouseleave.datePicker-time', timeSelector, null, function () {
-                    $this.clearTimePickerTimer();
+                .on('mouseleave.datePicker-time', timeSelector, null,  function (event) {
+                    if ($this.timePickerTimer) {
+                    	 $this.onTimePickerElementMouseUp(event);
+                    }
                 })
                 .on('click.datePicker-ampm', ampmSelector, null, function (event) {
                     $this.toggleAmPm(event);
@@ -1728,6 +1730,9 @@
         onTimePickerElementMouseUp: function (event) {
             if (!this.options.disabled) {
                 this.clearTimePickerTimer();
+                if (this.options.onSelect) {
+                	this.options.onSelect.call(this, event, this.value);
+                }
             }
         },
 
@@ -1767,6 +1772,7 @@
         clearTimePickerTimer: function () {
             if (this.timePickerTimer) {
                 clearTimeout(this.timePickerTimer);
+                this.timePickerTimer = null;
             }
         },
 
@@ -2100,7 +2106,9 @@
             this.updateModel(event, newDateTime);
 
             if (this.options.onSelect) {
-                this.options.onSelect.call(this, event, newDateTime);
+                if (this.timePickerTimer === 'undefined' || this.timePickerTimer === null) {
+                    this.options.onSelect.call(this, event, newDateTime);
+                }
             }
         },
 
