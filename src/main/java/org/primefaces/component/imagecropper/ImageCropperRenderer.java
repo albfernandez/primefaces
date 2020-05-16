@@ -206,9 +206,8 @@ public class ImageCropperRenderer extends CoreRenderer {
                     imagePath = FileUploadUtils.checkPathTraversal(imagePath);
                     String webRoot = externalContext.getRealPath(Constants.EMPTY_STRING);
                     String fileSeparator = Constants.EMPTY_STRING;
-                    if (!(webRoot.endsWith("\\") || webRoot.endsWith("/")) &&
-                    		 !(imagePath.startsWith("\\") || imagePath.startsWith("/"))) {
-                    	fileSeparator = "/";
+                    if (!(webRoot.endsWith("\\") || webRoot.endsWith("/")) && !(imagePath.startsWith("\\") || imagePath.startsWith("/"))) {
+                        fileSeparator = "/";
                     }
                     File file = new File(webRoot + fileSeparator + imagePath);
                     inputStream = new FileInputStream(file);
