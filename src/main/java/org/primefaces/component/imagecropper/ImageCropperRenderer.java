@@ -205,7 +205,12 @@ public class ImageCropperRenderer extends CoreRenderer {
                     // GitHub #3268 OWASP Path Traversal
                     imagePath = FileUploadUtils.checkPathTraversal(imagePath);
                     String webRoot = externalContext.getRealPath(Constants.EMPTY_STRING);
-                    File file = new File(webRoot + imagePath);
+                    String fileSeparator = Constants.EMPTY_STRING;
+                    if (!(webRoot.endsWith("\\") || webRoot.endsWith("/")) &&
+                    		 !(imagePath.startsWith("\\") || imagePath.startsWith("/"))) {
+                    	fileSeparator = "/";
+                    }
+                    File file = new File(webRoot + fileSeparator + imagePath);
                     inputStream = new FileInputStream(file);
                 }
             }
