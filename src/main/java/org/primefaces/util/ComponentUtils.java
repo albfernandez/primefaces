@@ -171,12 +171,15 @@ public class ComponentUtils {
         return context.getApplication().createConverter(converterType);
     }
 
-    public static Object getConvertedValue(FacesContext context, UIComponent component, String value) {
-        Converter converter = getConverter(context, component);
-        if (converter != null) {
-            return converter.getAsObject(context, component, value);
+    public static Object getConvertedValue(FacesContext context, UIComponent component, Object value) {
+        String submittedValue = Objects.toString(value, null);
+        if (LangUtils.isValueBlank(submittedValue)) {
+            submittedValue = null;
         }
-
+        Converter<?> converter = getConverter(context, component);
+        if (converter != null) {
+            return converter.getAsObject(context, component, submittedValue);
+        }
         return value;
     }
 
