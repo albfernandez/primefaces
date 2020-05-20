@@ -101,7 +101,10 @@ public class DefaultStreamedContent implements StreamedContent, Serializable {
 
     @Override
     public InputStream getStream() {
-        return stream.get();
+        if (this.stream != null) {
+            return stream.get();
+        }
+        return null;
     }
 
     /**
