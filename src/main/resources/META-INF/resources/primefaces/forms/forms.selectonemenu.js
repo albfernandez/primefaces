@@ -706,13 +706,11 @@ PrimeFaces.widget.SelectOneMenu = PrimeFaces.widget.DeferredWidget.extend({
 
         //value before panel is shown
         this.preShowValue = this.options.filter(':selected');
-        this.focusInput.attr('aria-expanded', true);
         this.jq.attr('aria-expanded', true);
     },
 
     hide: function() {
         this.panel.css('z-index', '').hide();
-        this.focusInput.attr('aria-expanded', false);
         this.jq.attr('aria-expanded', false);
     },
 
