@@ -51,6 +51,10 @@ PrimeFaces.widget.Calendar = PrimeFaces.widget.BaseWidget.extend({
                     return false;
                 }
 
+                // #4119 do not popup if readonly
+                if ($this.cfg.readonly) {
+                	return false;
+                }
                 //display on top
                 setTimeout(function() {
                     $('#ui-datepicker-div').addClass('ui-input-overlay').css('z-index', ++PrimeFaces.zindex);
@@ -113,7 +117,7 @@ PrimeFaces.widget.Calendar = PrimeFaces.widget.BaseWidget.extend({
                 triggerButton.attr('title', title);
             }
 
-            if(this.cfg.disabled) {
+            if(this.cfg.disabled || this.readonly) {
                 triggerButton.addClass('ui-state-disabled');
             }
 
