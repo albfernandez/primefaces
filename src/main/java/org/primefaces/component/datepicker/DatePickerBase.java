@@ -76,6 +76,7 @@ public abstract class DatePickerBase extends UICalendar implements Widget, Input
         numberOfMonths,
         view,
         touchUI,
+        responsive,
         dateTemplate,
         appendTo,
         triggerButtonIcon,
@@ -345,6 +346,14 @@ public abstract class DatePickerBase extends UICalendar implements Widget, Input
 
     public void setTouchUI(boolean touchUI) {
         getStateHelper().put(PropertyKeys.touchUI, touchUI);
+    }
+
+    public boolean isResponsive() {
+        return (Boolean) getStateHelper().eval(PropertyKeys.responsive, true);
+    }
+
+    public void setResponsive(boolean responsive) {
+        getStateHelper().put(PropertyKeys.responsive, responsive);
     }
 
     public String getDateTemplate() {
