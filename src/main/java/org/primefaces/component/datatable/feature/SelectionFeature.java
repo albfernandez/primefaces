@@ -33,7 +33,6 @@ import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class SelectionFeature implements DataTableFeature {
@@ -94,8 +93,6 @@ public class SelectionFeature implements DataTableFeature {
                     rowKeys.add(table.getRowKey(selection));
                 }
                 else {
-                    rowKeys.addAll(table.getSelectedRowKeys());
-
                     Class<?> clazz = selection.getClass();
                     boolean isArray = clazz != null && clazz.isArray();
 
@@ -229,7 +226,7 @@ public class SelectionFeature implements DataTableFeature {
         }
         else {
             if (multiple) {
-                selection = isArray ? Array.newInstance(clazz.getComponentType(), selected.size()) : selected;
+                selection = isArray ? selected.toArray() : selected;
             }
             else {
                 selection = selected.get(0);
