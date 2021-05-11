@@ -489,6 +489,8 @@ PrimeFaces.widget.OverlayPanel = PrimeFaces.widget.DynamicOverlayWidget.extend({
                 {name: this.id + '_contentLoad', value: true}
             ],
             onsuccess: function(responseXML, status, xhr) {
+            	// must show the overlay first so deferred wigets can render
+            	$this._show(target);
                 PrimeFaces.ajax.Response.handle(responseXML, status, xhr, {
                         widget: $this,
                         handle: function(content) {
@@ -497,10 +499,7 @@ PrimeFaces.widget.OverlayPanel = PrimeFaces.widget.DynamicOverlayWidget.extend({
                         }
                     });
 
-                return true;
-            },
-            oncomplete: function() {
-                $this._show(target);
+                return true;            
             }
         };
 
