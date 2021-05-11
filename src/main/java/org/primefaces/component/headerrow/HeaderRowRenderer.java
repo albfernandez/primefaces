@@ -49,7 +49,7 @@ public class HeaderRowRenderer extends CoreRenderer {
 
         // GitHub #7296 prevent issue with PanelGrid rendering
         Object helperRenderer = context.getAttributes().remove(Constants.HELPER_RENDERER);
-        
+
         writer.startElement("tr", null);
         writer.writeAttribute("class", DataTable.HEADER_ROW_CLASS, null);
 
@@ -70,7 +70,6 @@ public class HeaderRowRenderer extends CoreRenderer {
         }
 
         writer.endElement("tr");
-        
         context.getAttributes().put(Constants.HELPER_RENDERER, helperRenderer);
     }
 
