@@ -33,6 +33,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.headerrow.HeaderRow;
 import org.primefaces.renderkit.CoreRenderer;
+import org.primefaces.util.Constants;
 
 public class SummaryRowRenderer extends CoreRenderer {
 
@@ -43,6 +44,8 @@ public class SummaryRowRenderer extends CoreRenderer {
         ResponseWriter writer = context.getResponseWriter();
         HeaderRow headerRow = table.getHeaderRow();
 
+        // GitHub #7296 prevent issue with PanelGrid rendering
+        Object helperRenderer = context.getAttributes().remove(Constants.HELPER_RENDERER);
         writer.startElement("tr", null);
         writer.writeAttribute("class", DataTable.SUMMARY_ROW_CLASS, null);
 
@@ -77,6 +80,7 @@ public class SummaryRowRenderer extends CoreRenderer {
         }
 
         writer.endElement("tr");
+        context.getAttributes().put(Constants.HELPER_RENDERER, helperRenderer);
     }
 
     @Override
