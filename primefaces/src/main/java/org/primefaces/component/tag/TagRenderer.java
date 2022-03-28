@@ -82,7 +82,7 @@ public class TagRenderer extends CoreRenderer {
         if (tag.getValue() != null) {
             writer.startElement("span", tag);
             writer.writeAttribute("class", Tag.VALUE_CLASS, null);
-            writer.write(tag.getValue());
+            writer.writeText(tag.getValue(), "value");
             writer.endElement("span");
         }
     }
