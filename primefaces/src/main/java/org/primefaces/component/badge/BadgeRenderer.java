@@ -109,7 +109,7 @@ public class BadgeRenderer extends CoreRenderer {
         }
 
         if (!valueEmpty && model.isVisible()) {
-            writer.write(value);
+            writer.writeText(value, "value");
         }
         writer.endElement("span");
 
