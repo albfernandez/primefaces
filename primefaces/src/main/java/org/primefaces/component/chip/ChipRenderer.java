@@ -94,7 +94,7 @@ public class ChipRenderer extends CoreRenderer {
         if (chip.getLabel() != null) {
             writer.startElement("div", chip);
             writer.writeAttribute("class", Chip.TEXT_CLASS, null);
-            writer.write(chip.getLabel());
+            writer.writeText(chip.getLabel(), "label");
             writer.endElement("div");
         }
 
